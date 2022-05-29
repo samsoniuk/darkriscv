@@ -54,7 +54,7 @@
 // The difference between the RV32I and RV32E regarding the logic space is 
 // minimal in typical applications with modern 5 or 6 input LUT based FPGAs, 
 // but the RV32E is better with old 4 input LUT based FPGAs.
-// `define __RV32E__
+`define __RV32E__
 
 // muti-threading support:
 //
@@ -167,7 +167,7 @@
 // be better allocated, but in this case is not possible protect the .text
 // area as in the case of separate memory banks.
 // WARNING: this setup must match with the src/darksocv.ld.src file!
-`define __HARVARD__
+//`define __HARVARD__
 
 // memory size:
 //
