@@ -36,19 +36,20 @@ endif
 ifndef CROSS
 
     ARCH = rv32e
-    # ARCH = rv32i
+    #ARCH = rv32i
     
     #TODO: better way to switch little/big-endian:
     #ENDIAN = _le # gcc for little-endian
     #ENDIAN = _be # gcc for big-endian
 
-    CROSS = riscv32-unknown-elf
+    #CROSS = riscv32-unknown-elf
     #CROSS = riscv-elf
     #CROSS = riscv32-unknown-elf
-    #CROSS = riscv32-embedded-elf
+    CROSS = riscv32-embedded-elf
     
-    CCPATH = /opt/riscv32-gcc/bin/
+    #CCPATH = /opt/riscv32-gcc/bin/
     #CCPATH = /usr/local/share/toolchain-$(CROSS)/bin
+    CCPATH = /usr/local/share/gcc-riscv32-embedded-elf/bin
     #HARVARD = 1
 endif
 
@@ -65,6 +66,7 @@ endif
 
 DFLAGS_STR = -DFLAGS_STR=\""-O2 -DPERFORMANCE_RUN=1"\"
 CCFLAGS = -Wall -fcommon -ffreestanding -O2 -I. -I./src -I./include $(DFLAGS_STR) -DITERATIONS=4000 -DPERFORMANCE_RUN=1 -march=$(ARCH) -mabi=ilp32e -D__RISCV__ -DBUILD="\"$(BUILD)\"" -DARCH="\"$(ARCH)\""
+#CCFLAGS = -Wall -fcommon -ffreestanding -O2 -I. -I./src -I./include $(DFLAGS_STR) -DITERATIONS=4000 -DPERFORMANCE_RUN=1 -march=$(ARCH) -D__RISCV__ -DBUILD="\"$(BUILD)\"" -DARCH="\"$(ARCH)\""
 ASFLAGS = -march=$(ARCH)
 LDFLAGS = -T$(PROJ).ld -Map=$(PROJ).map -m elf32lriscv # -Ttext=0
 CPFLAGS = -P 
@@ -79,9 +81,9 @@ OCFLAGS = -O binary # --reverse-bytes=4 # workaround for darkriscv big-endian bl
 ODFLAGS = -D
 
 PROJ = coremark
-OBJS = ./src/core_main.o ./src/core_matrix.o ./src/core_list_join.o ./src/core_state.o ./src/core_util.o core_portme.o ee_printf.o ./include/darkriscv.o ./include/io.o ./include/boot.o
+OBJS = ./src/core_main.o ./src/core_matrix.o ./src/core_list_join.o ./src/core_state.o ./src/core_util.o core_portme.o ee_printf.o ./include/darkriscv.o ./include/io.o ../common/boot.o
 ASMS = ./src/core_main.s ./src/core_matrix.s ./src/core_list_join.s ./src/core_state.s ./src/core_util.s core_portme.s ee_printf.s ./include/darkriscv.s ./include/io.s
-SRCS = ./src/core_main.c ./src/core_matrix.c ./src/core_list_join.c ./src/core_state.c ./src/core_util.c core_portme.c ee_printf.c ./include/darkriscv.c ./include/io.c ./include/boot.s
+SRCS = ./src/core_main.c ./src/core_matrix.c ./src/core_list_join.c ./src/core_state.c ./src/core_util.c core_portme.c ee_printf.c ./include/darkriscv.c ./include/io.c ../common/boot.s
 
 
 DEPS = $(SRCS) $(ASMS) $(OBJS) $(PROJ).ld $(PROJ).lds

@@ -1,5 +1,5 @@
 APPLICATION = darksocv
-
+#APPLICATION = coremark
 
 default: all
 

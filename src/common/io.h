@@ -60,6 +60,12 @@ extern volatile struct DARKIO io;
 
 extern char *board_name(int);
 
+extern unsigned _text;
+extern unsigned _data;
+extern unsigned _etext;
+extern unsigned _edata;
+extern unsigned _stack;
+
 #ifdef __RISCV__
 #define kmem 0
 #else

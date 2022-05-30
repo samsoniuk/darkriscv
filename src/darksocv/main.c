@@ -50,10 +50,17 @@ void irq_handler(void)
 
 volatile int heapcheck = 0xdeadbeef;
 
+void banner();
+
 int main(void)
 {
+    banner();
+
     printf("board: %s (id=%d)\n",board_name(io.board_id),io.board_id);
     printf("build: %s for %s\n",BUILD,ARCH);
+
+    printf("boot0: text@%d+%d data@%d+%d stack@%d (%d bytes free)\n",
+        &_text,&_etext-&_text,&_data,&_edata-&_data,&_stack,&_stack-&_edata);
 
     printf("core%d: ",              io.core_id);                 // core id
     printf("darkriscv@%dMHz with: ",io.board_cm*2);              // board clock MHz
